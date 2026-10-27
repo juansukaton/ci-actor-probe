@@ -1,0 +1,21 @@
+name: Downstream Actor Probe
+on:
+  workflow_run:
+    workflows: ["Upstream"]
+    types: [completed]
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump actor attribution fields
+        run: |
+          echo "github.actor                         = ${{ github.actor }}"
+          echo "github.triggering_actor               = ${{ github.triggering_actor }}"
+          echo "workflow_run.actor.login              = ${{ github.event.workflow_run.actor.login }}"
+          echo "workflow_run.actor.type               = ${{ github.event.workflow_run.actor.type }}"
+          echo "workflow_run.triggering_actor.login   = ${{ github.event.workflow_run.triggering_actor.login }}"
+          echo "workflow_run.triggering_actor.type    = ${{ github.event.workflow_run.triggering_actor.type }}"
+          echo "workflow_run.head_repository.fullname = ${{ github.event.workflow_run.head_repository.full_name }}"
+          echo "workflow_run.event                    = ${{ github.event.workflow_run.event }}"
+          echo "sender.login                          = ${{ github.event.sender.login }}"

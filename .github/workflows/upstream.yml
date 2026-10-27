@@ -1,0 +1,10 @@
+name: Upstream
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "upstream run for PR #${{ github.event.pull_request.number }} by ${{ github.actor }}"
